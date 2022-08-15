@@ -1,12 +1,11 @@
-// Use "input()" to input a line from the user
-// Use "input(str)" to print some text before requesting input
-// You will need this in the following stages
-//const input = require('sync-input')
+function calculateNeededIngredients (){
+    const input = require('sync-input');
+    let coffee = input("Write how many cups of coffee you will need:");
+    let water = coffee * 200;
+    let milk = coffee * 50;
+    let beans = coffee * 15;
+    console.log(`For ${coffee} cups of coffee you will need:`);
+    console.log(`${water}  ml of water\n${milk} ml of milk\n${beans} g of coffee beans`);
+}
 
-console.log(`Starting to make a coffee
-Grinding coffee beans
-Boiling water
-Mixing boiled water with crushed coffee beans
-Pouring coffee into the cup
-Pouring some milk into the cup
-Coffee is ready!`);
+calculateNeededIngredients();
