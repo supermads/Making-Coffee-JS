@@ -293,8 +293,31 @@ files:
   learner_created: false
 feedback_link: https://hyperskill.org/projects/220/stages/1104/implement#comment
 check_profile: hyperskill_node_javascript
-status: Solved
+status: Failed
 feedback:
-  message: <html>Correct solution</html>
-  time: Fri, 19 Aug 2022 22:57:08 UTC
-record: -1
+  message: |-
+    Wrong answer in test #1
+
+    There should be two lines with "milk", found: 0
+
+    Please find below the output of your program during this failed test.
+
+    ---
+
+    0
+    1
+    2
+    3
+    0
+    1
+    2
+    3
+    4
+    4
+    0
+    1
+    2
+    3
+    4
+  time: Mon, 22 Aug 2022 17:29:03 UTC
+record: 4

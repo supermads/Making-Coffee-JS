@@ -1,6 +1,6 @@
 const input = require('sync-input');
 
-function printState() {
+function printRemaining() {
     console.log("The coffee machine has:");
     console.log(`${water} ml of water`);
     console.log(`${milk} ml of milk`);
@@ -10,15 +10,33 @@ function printState() {
 }
 
 function buy() {
-    let drinkChoice = parseInt(input("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:\n")) - 1;
-    // drinkIngredients = [[waterRequired, milkRequired, beansRequired, drinkCost], ...]
-    let drinkIngredients = [[250, 0, 16, 4], [350, 75, 20, 7], [200, 100, 12, 6]];
-
-    cups -= 1;
-    water -= drinkIngredients[drinkChoice][0];
-    milk -= drinkIngredients[drinkChoice][1];
-    beans -= drinkIngredients[drinkChoice][2];
-    money += drinkIngredients[drinkChoice][3];
+    let drinkChoice = parseInt(input("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:\n")) - 1;
+    // stock = [[waterRequired, milkRequired, beansRequired, drinkPrice], ...]
+    let stock = [[250, 0, 16, 4], [350, 75, 20, 7], [200, 100, 12, 6]];
+    if (drinkChoice == 0 || drinkChoice == 1 || drinkChoice == 2) {
+        if (cups >= 1) {
+            if (water >= stock[drinkChoice][0]) {
+                if (milk >= stock[drinkChoice][1]) {
+                    if (beans >= stock[drinkChoice][2]) {
+                        console.log("I have enough resources, making you a coffee!");
+                        cups -= 1;
+                        water -= stock[drinkChoice][0];
+                        milk -= stock[drinkChoice][1];
+                        beans -= stock[drinkChoice][2];
+                        money += stock[drinkChoice][3];
+                    } else {
+                        console.log("Sorry, not enough beans!");
+                    };
+                }  else {
+                    console.log("Sorry, not enough milk!");
+                } ;
+            } else {
+                console.log("Sorry, not enough water!");
+            };
+        } else {
+            console.log("Sorry, not enough cups!");
+        };
+    }
 }
 
 function fill() {
@@ -34,6 +52,7 @@ function fill() {
 }
 
 function take(){
+    console.log(`I gave you \$${money}`);
     money = 0;
 }
 
@@ -44,19 +63,20 @@ function main() {
     money = 550;
     cups = 9;
 
-    printState();
+    let action = input("Write action (buy, fill, take, remaining, exit):\n");
 
-    let action = input("Write action (buy, fill, take):\n");
-
-    if (action == "buy") {
-        buy();
-    } else if (action == "fill") {
-        fill();
-    } else if (action == "take") {
-        take();
+    while (action !== "exit") {
+        if (action == "buy") {
+            buy();
+        } else if (action == "fill") {
+            fill();
+        } else if (action == "take") {
+            take();
+        } else if (action == "remaining") {
+            printRemaining();
+        };
+        action = input("Write action (buy, fill, take, remaining, exit):\n");
     };
-
-    printState();
 }
 
 main();
