@@ -13,7 +13,8 @@ function buy() {
     let drinkChoice = parseInt(input("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:\n")) - 1;
     // stock = [[waterRequired, milkRequired, beansRequired, drinkPrice], ...]
     let stock = [[250, 0, 16, 4], [350, 75, 20, 7], [200, 100, 12, 6]];
-    if (drinkChoice == 0 || drinkChoice == 1 || drinkChoice == 2) {
+    // continue to take drink orders until the user types "back" to return to the main menu
+    while (drinkChoice == 0 || drinkChoice == 1 || drinkChoice == 2) {
         if (cups >= 1) {
             if (water >= stock[drinkChoice][0]) {
                 if (milk >= stock[drinkChoice][1]) {
@@ -37,6 +38,7 @@ function buy() {
             console.log("Sorry, not enough cups!");
         };
     }
+    drinkChoice = parseInt(input("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:\n")) - 1;
 }
 
 function fill() {
@@ -52,8 +54,13 @@ function fill() {
 }
 
 function take(){
-    console.log(`I gave you \$${money}`);
-    money = 0;
+    let withdrawal = parseInt(input("How much money would you like to take out?"));
+    if (withdrawal <= money) {
+        money -= withdrawal;
+        console.log(`I gave you \$${money}`);
+    } else {
+        console.log("Sorry, that amount is larger than the money available.")
+    };
 }
 
 function main() {
